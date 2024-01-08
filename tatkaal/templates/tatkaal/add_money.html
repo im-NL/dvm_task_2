@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Money to wallet</title>
+</head>
+<body>
+    <h1>Add money to wallet</h1>
+    <form action="/add_money/" method="post">
+        {% csrf_token %}
+        <label for="amount">Amount to be added in Rs.</label>
+        <input id="amount" name="amount" type="number">
+        <button type="submit">Confirm</button>
+    </form>
+</body>
+</html>

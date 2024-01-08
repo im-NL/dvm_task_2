@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check bookings</title>
+</head>
+<body>
+    display all tickets 
+    <table>
+        <tr>
+            <th>Train number</th>
+            <th>Passenger name</th>
+            <th>Seat No.</th>
+            <th>Actions</th>
+        </tr>
+        {% for ticket in tickets %}
+        <tr class="trains">
+            <td> <a href="/view/train/{{ticket.train}}"> {{ticket.train}}</a> </td>
+            <td> {{ ticket.passenger_name }} </td>
+            <td> {{ ticket.seat_no }} </td>
+            <td> <a href="/cancel_ticket/{{ticket.id}}">Cancel ticket</a> <br>
+                <a href="{{ticket.id}}">View Ticket in detail</a> </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Train details</title>
+</head>
+<body>
+
+    <h1>Edit train details</h1>
+
+    <form action="/admin_dashboard/edit_train/{{ train.id }}/" method="post">
+        {% csrf_token %}
+        <label for="id">Train Number: {{ train.id }}</label> <br>
+        <label for="train_name">Train Name: </label>
+        <input type="text" name="name" id="name" value="{{ train.name }}"> <br>
+        <label type="text">Start point: </label>
+        <input type="text" name="start_point" id="start_point" value="{{ train.start_point }}"> <br>
+        <label for="destination">Destination: </label>
+        <input type="text" name="destination" id="destination" value="{{ train.destination }}"> <br>
+        <label for="total_seats" >Total Seats: </label>
+        <input type="text" name="total_seats" id="total_seats" value="{{ train.total_seats }}"> <br>        
+        <label for="departure_time">Departure Time: </label>
+        <input type="time" name="departure_time" id="departure_time" value="{{ train.departure_time }}"> <br>
+        <label for="duration">Duration in minutes: </label>
+        <input type="text" name="duration" id="duration" value="{{ train.duration }}"> <br>
+        <label for="gen_price">Price: </label>
+        <input type="text" name="gen_price" id="gen_price" value="{{ train.gen_price }}"> <br>
+        <label for="days">Running days (space separated): </label>
+        <input type="text" name="days" id="days" value="{{ train.days }}"> <br>
+        <input type="submit" value="Edit Train">
+    </form>
+
+    
+</body>
+</html>

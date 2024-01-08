@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin dashboard</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, {{user}} {{ user.first_name }} {{ user.last_name }}</p>
+    <a href="/users/logout">Logout</a>
+    <a href="/">Home</a>
+
+    <!-- full form to add another train to the database -->
+    <h2>Add train</h2>
+    <form action="/admin_dashboard/add_train" method="post">
+        {% csrf_token %}
+        <label for="id">Train Number: </label> 
+        <input type="text" name="id" id="id"> <br>
+        <label for="train_name">Train Name: </label>
+        <input type="text" name="name" id="name"> <br>
+        <label type="text">Start point: </label>
+        <input type="text" name="start_point" id="start_point"> <br>
+        <label for="destination">Destination: </label>
+        <input type="text" name="destination" id="destination"> <br>
+        <label for="total_seats" >Total Seats: </label>
+        <input type="text" name="total_seats" id="total_seats"> <br>        
+        <label for="departure_time">Departure Time: </label>
+        <input type="time" name="departure_time" id="departure_time"> <br>
+        <label for="duration">Duration in minutes: </label>
+        <input type="text" name="duration" id="duration"> <br>
+        <label for="gen_price">Price: </label>
+        <input type="text" name="gen_price" id="gen_price"> <br>
+        <label for="days">Running days (space separated): </label>
+        <input type="text" name="days" id="days"> <br>
+        <input type="submit" value="Add Train">
+    </form>
+    
+    
+    <!-- display all trains in a table and give options to add edit or delete the train -->
+    <h2>View Trains</h2>
+    {% if trains %}
+    <table>
+        <tr>
+            <th>Train Number</th>
+            <th>Train Name</th>
+            <th>Start Point</th>
+            <th>Destination</th>
+            <th>Start Time</th>
+            <th>Duration</th>
+            <th>Price</th>
+            <th>Days</th>
+            <th>Actions</th>
+        </tr>
+        {% for train in trains %}
+        <tr>
+            <td>{{ train.id }}</td>
+            <td>{{ train.name }}</td>
+            <td>{{ train.start_point }}</td>
+            <td>{{ train.destination }}</td>
+            <td>{{ train.departure_time }}</td>
+            <td>{{ train.duration }}</td>
+            <td>{{ train.gen_price }}</td>
+            <td>{{ train.days }}</td>
+            <td>
+                <a href="/admin_dashboard/edit_train/{{ train.id }}">Edit</a> <br>
+                <a href="/admin_dashboard/delete_train/{{ train.id }}">Delete</a> <br>
+                <a href="/admin_dashboard/cancel_train/{{ train.id }}">Cancel</a> <br>
+                <a href="/admin_dashboard/check_bookings/{{ train.id }}">Check bookings</a>
+            </td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <p>No trains available</p>
+    {% endif %}
+
+</body>
+</html>

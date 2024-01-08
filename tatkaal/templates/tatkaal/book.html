@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a ticket</title>
+    <style>
+        table, th, td{
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        function add_passenger() {
+            let form = document.getElementsByTagName('form')[0];
+            let div = document.createElement('div');
+            let p = document.createElement('p');
+            p.innerHTML = "Passenger " + (form.childElementCount-2); // -1 because the first child is the button
+
+            let label = document.createElement('label');
+            label.setAttribute('for', 'name');
+            label.innerHTML = "Name";
+
+            let input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('id', 'name_passenger_' + (form.childElementCount-1));
+            input.setAttribute('name', 'name_passenger_' + (form.childElementCount-1));
+
+            div.appendChild(p);
+            div.appendChild(label);
+            div.appendChild(input);
+
+            let secondLastElement = form.children[form.childElementCount - 2];
+            form.insertBefore(div, secondLastElement); 
+        }
+
+        function remove_passenger() {
+            let form = document.getElementsByTagName('form')[0];
+            console.log(form.children[form.childElementCount - 2])
+            form.children[form.childElementCount - 3].remove()
+        }
+    </script>
+</head>
+<body>
+    <h1>Book a ticket</h1>
+    Train ID: {{ train.id }}<br>
+    Train Name: {{ train.name }}<br>
+    <table>
+        <tr>
+            <th>Train number</th>
+            <th>Train name</th>
+            <th>Start point</th>
+            <th>End point</th>
+            <th>Departure time</th>
+            <th>Duration</th>
+            <th>Price</th>
+            <th>Seats</th>
+            <th>Days</th>
+        </tr>
+        <tr class="trains">
+            <td>{{train.id}}</td>
+            <td>{{train.name}}</td>
+            <td>{{train.start_point}}</td>
+            <td>{{train.destination}}</td>
+            <td>{{train.departure_time}}</td>
+            <td>{{train.duration}}</td>
+            <td>{{train.gen_price}}</td>
+            <td>{{train.total_seats}}</td>
+            <td>{{train.days}}</td>
+        </tr>
+    </table>
+
+    Seats left: {{ seats_available }}
+
+    <h3>Passenger Details</h3>
+    <!-- form should submit post request at /book/train_id/confirm -->
+    <form action="/book/{{train.id}}/confirm/" method="POST">
+        {% csrf_token %}
+        <div>
+            <p>Passenger 1</p>
+            <label for="name">Name</label>
+            <input type="text" id="name_passenger_1" name="name_passenger_1"> <br>
+        </div>
+        <button type="submit">Confirm</button> <br>
+    </form>
+    
+    <br>
+    <!-- button that adds a passenger -->
+    <button type="button" id="add_passenger" onclick="add_passenger()">Add passenger</button>
+    <button type="button" id="remove_passenger" onclick="remove_passenger()">Remove passenger</button>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, th, td{
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        function search(){
+            let input = document.getElementById('search').value;
+            input=input.toLowerCase();
+            let x = document.getElementsByClassName('trains');
+            
+            for(i=0; i<x.length; i++){
+                if(!x[i].innerHTML.toLowerCase().includes(input)){
+                    x[i].style.display="none";
+                }
+                else{
+                    x[i].style.display="table-row";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    {% if not user.is_authenticated %}
+    <h3>Please log in to continue</h3>
+    <a href="/accounts/login">Log in or Sign up</a>
+    <br>
+    {% else %}
+    <a href="/accounts/logout">Log out</a>
+    <p>Welcome, logged in as {{user}}</p>
+    <a href="/view_tickets">View your tickets</a>
+    {% endif %}
+
+    {% if user.is_superuser %}
+        <a href="/admin_dashboard">Admin panel</a>
+    {% endif %}
+
+    <h1>search for trains</h1>
+    <p>functionality to search (enter start point and end point) </p>
+
+    <!-- search bar to filter all trains with certain details using search bar and javascript -->
+    <input type="text" id="search" placeholder="Search for trains">
+    <buttton type="button" id="search" onclick="search()">Search</buttton>
+
+    <!-- Table that displays all trains -->
+    <table>
+        <tr>
+            <th>Train number</th>
+            <th>Train name</th>
+            <th>Start point</th>
+            <th>End point</th>
+            <th>Departure time</th>
+            <th>Duration</th>
+            <th>Price</th>
+            <th>Seats</th">
+            <th>Days</th>
+            <th>Book</th>
+        </tr>
+        {% for train in trains %}
+        <tr class="trains">
+            <td>{{train.id}}</td>
+            <td>{{train.name}}</td>
+            <td>{{train.start_point}}</td>
+            <td>{{train.destination}}</td>
+            <td>{{train.departure_time}}</td>
+            <td>{{train.duration}}</td>
+            <td>{{train.gen_price}}</td>
+            <td>{{train.total_seats}}</td>
+            <td>{{train.days}}</td>
+            <td><a href="book/{{train.id}}">Book</a></td>
+        </tr>
+        {% endfor %}
+</body>
+</html>

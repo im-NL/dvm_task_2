@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Ticket</title>
+</head>
+<body>
+    <a href="/">Home</a>
+    <h1>View Ticket</h1>
+    <table>
+        <tr>
+            <th>Train number</th>
+            <th>Passenger name</th>
+            <th>Seat No.</th>
+            <th>Actions</th>
+        </tr>
+        <tr class="trains">
+            <td> <a href="/view/train/{{ticket.train}}"> {{ticket.train}}</a> </td>
+            <td> {{ ticket.passenger_name }} </td>
+            <td> {{ ticket.seat_no }} </td>
+            <td> <a href="/cancel_ticket/{{ticket.id}}">Cancel ticket</a> <br>
+                <a href="{{ticket.id}}">View Ticket in detail</a> </td>
+        </tr>
+    </table>
+
+    <h1>Train details</h1>
+    <table>
+        <tr>
+            <th>Train number</th>
+            <th>Train name</th>
+            <th>Start point</th>
+            <th>End point</th>
+            <th>Departure time</th>
+            <th>Duration</th>
+            <th>Price</th>
+            <th>Seats</th>
+            <th>Days</th>
+        </tr>
+        <tr class="trains">
+            <td>{{train.id}}</td>
+            <td>{{train.name}}</td>
+            <td>{{train.start_point}}</td>
+            <td>{{train.destination}}</td>
+            <td>{{train.departure_time}}</td>
+            <td>{{train.duration}}</td>
+            <td>{{train.gen_price}}</td>
+            <td>{{train.total_seats}}</td>
+            <td>{{train.days}}</td>
+        </tr>
+    </table>
+</body>
+</html>
