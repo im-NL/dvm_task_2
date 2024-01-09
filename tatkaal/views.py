@@ -38,7 +38,7 @@ def book_confirm(request, train_id):
             redirect('/add_money')
 
         for passenger in passengers:
-            ticket = Ticket(train=train, user=request.user, passenger_name=passengers[passenger], seat_no=seats_booked+1)
+            ticket = Ticket(train=train, user=request.user, passenger_name=passengers[passenger][0], seat_no=seats_booked+1)
             seats_booked += 1
             ticket.save()
             wallet.balance -= train.gen_price
@@ -48,10 +48,10 @@ def book_confirm(request, train_id):
         print(tickets_booked)
         print(wallet.__dict__)
 
-        content = ""
+        content = '<a href="/">Home</a> <br>'
  
         for ticket in tickets_booked:
-            content += f"Passenger Name: {ticket[0][0]}, Seat No: {ticket[1]} <br>"
+            content += f"Passenger Name: {ticket[0]}, Seat No: {ticket[1]} <br>"
 
         return HttpResponse("Booked <br>" + content + "<br> <a href='/'>Go back</a>")
 

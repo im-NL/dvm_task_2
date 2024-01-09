@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check bookings</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-    display all tickets 
+    <a href="/admin_dashboard">Back to dashboard</a> <br>
+    <a href="/admin_dashboard/export_to_excel/{{tickets.0.train}}"> Export results to excel</a> 
     <table>
         <tr>
             <th>Train number</th>
